@@ -15,7 +15,9 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.username = form.cleaned_data['email'].split('@')[0] # username is all name before @
+            user.save()
             auth_login(request, user)
             return redirect('home')
     else:
