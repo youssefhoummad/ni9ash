@@ -1,0 +1,20 @@
+{% load static %}
+{% load humanize %}
+
+<article class="bg-white rounded shadow-sm mb-4 p-3 text-right mb-4">
+    <div class="clearfix">
+        <div class="votes position-relative float-right pr-3 pl-4 py-0 text-monospace font-weight-bold">
+            <div class="text-success"><a href="#">+</a></div> 
+            <div class="text-center">{{post.votes_pos |add:post.votes_neg}}</div>
+            <div class="text-danger"><a href="#">-</a></div>
+        </div>
+        <div class="" dir="rtl">
+            <img src="{% static 'img/profile.jpg' %}" width="32" class="rounded-circle mt-2 mb-2"/>
+            <span class="mr-3"><a href="#">{{post.created_by}}</a></span><br>
+            <small class="text-muted"> قبل:  {{post.created_at|naturaltime}}</small>
+        </div>
+    </div>
+    <div class="">
+        {{ post.get_message_as_markdown }}
+    </div>
+</article>

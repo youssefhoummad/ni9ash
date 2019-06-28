@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center align-middle">
+    <svg id="i-alert" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M16 14 L16 23 M16 8 L16 10" />
+        <circle cx="16" cy="16" r="14" />
+    </svg>
+    <h1 class="display-1 mt-5">Oops!</h1>
+    <h2 class="display-3">500 Internal Server Error!</h2>
+    <div class="text-danger">Unfortunately we're having trouble loading the page you are looking for. Please come back in a while.</div>
+</div>
+{% endblock %}

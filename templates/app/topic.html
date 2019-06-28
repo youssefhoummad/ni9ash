@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <!-- topic post -->
+  {% include 'app/_topic.html'%}
+
+  <!-- form replay -->
+  {% if user.is_authenticated %}
+  <form method="POST" action="{% url 'topic' topic.id %}" class="mb-4" dir="auto">
+    {% include '_form.html' %}
+    <button type="submit" class="btn btn-success">أضف ردا</button>
+  </form>
+  {% endif %}
+
+  <!-- nothing -->
+  {% if posts.count > 1 %}
+  <div class="w-100 text-right mb-3">
+    <h5>
+      التعليقات
+    </h5>
+  </div>
+  {% endif %}
+
+  <!-- Comment post -->
+  <ul class="list-unstyled w-100 p-0">
+      {% if posts.count > 1 %}
+          {% for post in posts %}
+              {% if forloop.first is False %}
+                  {% include 'app/_post.html' %}
+              {% endif %}
+          {% endfor %}
+      {% else %}
+          <li class="card border-0 shadow-sm rounded text-right mb-5 p-3">
+              لا يوجد أي تعليق
+          </li>
+      {% endif %}
+  </ul>
+{% endblock %}

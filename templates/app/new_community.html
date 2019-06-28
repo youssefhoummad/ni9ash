@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} مجتمع جديد {% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% include '_form.html'%}
+    <button type="submit" class="btn btn-success">انشئ المجتمع</button>
+</form>
+
+{% endblock %}
