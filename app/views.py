@@ -32,8 +32,8 @@ def topic(request, topic_id):
             post.user = request.user
             post.created_by = request.user
             post.topic = topic
-            post.save()
-            messages('success', 'نُشِر تعليقك')
+            post.save()            
+            messages.success(request, 'نُشِر تعليقك')
             return redirect('topic', topic.id)
     else:
         form = PostForm()
@@ -59,7 +59,7 @@ def new_topic(request):
                 topic=topic,
                 created_by=request.user
             )
-            messages('success', 'نُشِر موضوعك')
+            messages.success(request, 'نُشِر موضوعك')
             return redirect('topic', topic.id)
     else:
         form = TopicForm()
@@ -74,9 +74,9 @@ def new_community(request):
         form = CommunityForm(request.POST)
         if form.is_valid():
             community = form.save()
-            messages('success', 'أٌنشِأ المجتمع الجديد')
-            return redirect('community' community.id) 
-    else:
+            messages.success(request, 'أٌنشِأ المجتمع الجديد')
+            return redirect('community', community.id) # temp some probleme if two user create  
+    else:                                                                    # community in some time
         form = CommunityForm()
         context = {'form': form}
 
