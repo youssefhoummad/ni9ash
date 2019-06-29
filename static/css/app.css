@@ -8,6 +8,9 @@ body{
     line-height: 2em;
 }
 
+main{
+    min-height: calc(100vh - 260px)
+}
 
 h1, h2, h3, h4, h5{
     font-family: 'Noto Kufi Arabic', sans-serif;
