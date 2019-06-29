@@ -51,3 +51,7 @@ article img{
 .top-arrow, .bottom-arrow{
     filter: invert(7%) sepia(100%) saturate(7194%) hue-rotate(247deg) brightness(106%) contrast(140%);
 }
+
+.btn{
+    border-radius: 0%
+}

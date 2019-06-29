@@ -16,10 +16,20 @@
 
   <!-- nothing -->
   {% if posts.count > 1 %}
-  <div class="w-100 text-right mb-3">
-    <h5>
+  <div class="w-100 text-right clearfix mb-3">
+    <h5 class="d-inline">
       التعليقات
     </h5>
+    <div class="btn-group float-left" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle pb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          الأقدم
+        </button>
+        <div class="dropdown-menu text-right" aria-labelledby="btnGroupDrop1">
+          <a class="dropdown-item" href="#">الأفضل</a>
+          <a class="dropdown-item" href="#">الأحدث</a>
+          <a class="dropdown-item" href="#">الأقدم</a>
+        </div>
+    </div>
   </div>
   {% endif %}
 
