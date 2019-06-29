@@ -33,7 +33,7 @@ def topic(request, topic_id):
             post.created_by = request.user
             post.topic = topic
             post.save()
-
+            messages('success', 'نُشِر تعليقك')
             return redirect('topic', topic.id)
     else:
         form = PostForm()
@@ -59,6 +59,7 @@ def new_topic(request):
                 topic=topic,
                 created_by=request.user
             )
+            messages('success', 'نُشِر موضوعك')
             return redirect('topic', topic.id)
     else:
         form = TopicForm()
@@ -72,9 +73,9 @@ def new_community(request):
     if request.method == 'POST':
         form = CommunityForm(request.POST)
         if form.is_valid():
-            form.save()
- 
-            return redirect('home') # TODO redirect to community page
+            community = form.save()
+            messages('success', 'أٌنشِأ المجتمع الجديد')
+            return redirect('community' community.id) 
     else:
         form = CommunityForm()
         context = {'form': form}
