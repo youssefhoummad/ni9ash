@@ -38,3 +38,10 @@
       {% endif %}
   </ul>
 {% endblock %}
+
+{% block aside %}
+<div class="bg-white p-3 shadow-sm">
+    <h5><small class="font-weight-bolder">{{ topic.community.name }}</small></h5>
+    <p> {{ topic.community.description }} </p>
+</div>
+{% endblock %}

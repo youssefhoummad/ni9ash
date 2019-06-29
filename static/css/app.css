@@ -11,7 +11,9 @@ body{
 
 h1, h2, h3, h4, h5{
     font-family: 'Noto Kufi Arabic', sans-serif;
+    color: blue;
 }
+
 
 a{
     color: inherit;
@@ -32,3 +34,17 @@ article img{
     max-width: 100%;
 }
 
+.nav-tabs{
+    border-bottom: 2px solid blue;
+}
+
+.nav-link {
+    padding: 3px 15px;
+    margin-bottom: 2px;
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    font-size: 14px;
+}
+
+.top-arrow, .bottom-arrow{
+    filter: invert(7%) sepia(100%) saturate(7194%) hue-rotate(247deg) brightness(106%) contrast(140%);
+}

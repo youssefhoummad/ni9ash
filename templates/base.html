@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-light navbar-expand-lg bg-white shadow">
   <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">نقاش</a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img height=40 src="{% static 'img/logo.png' %}"/></a>
       {% include 'app/_search.html' %}
         <div style="float:left">
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,25 +58,32 @@
       </div>
     </nav>
 
-    <main role="main" class="container text-right">
-      {% block main %}
-      <div class="row mt-5">
+  <main role="main" class="container text-right mt-4">
+    {% block main %}
+    <div class="row">
+        <div class="col-md-9">
+          {% block header %}{% endblock %}
+        </div>
+    </div>
+    <div class="row mt-3">
         <div class="col-md-9">
           {% block content %}{% endblock %}
         </div>
-          <div class="col-md-3">
-            {% block aside %}
-            
-            {% endblock %}
-          </div>
+        <div class="col-md-3">
+          {% block aside %}{% endblock %}
         </div>
-      {% endblock %}
-    </main>
-  
+      </div>
+    {% endblock %}
+  </main>
 
-    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block javascript %}{% endblock %}
+  <footer class="text-center bg-white p-4 mt-4">
+    <img height="60" src="{% static 'img/logo.png' %}"/><br>
+    <span class="text-muted text-monospace">youssefhoummad</span>
+  </footer>
+
+  <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  {% block javascript %}{% endblock %}
 </body>
 </html>

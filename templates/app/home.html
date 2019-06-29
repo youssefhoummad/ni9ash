@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+{% block header %}
+<ul class="nav nav-tabs pr-0">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">الأكثر شيوعا</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">الأحدث</a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> الأفضل&nbsp </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+    </li>
+  </ul>
+{% endblock %}
+
 {% block content %}
-<header>
-
-</header>
-
-
 <ul class="list-unstyled w-100 p-0">
     {% for topic in topics %}
     <li>
@@ -20,21 +37,33 @@
 {% endblock %}
 
 {% block aside %}
-<div class="bg-white p-3 shadow-sm">
-        <h5><small class="font-weight-bolder">أضف محتوى</small></h5>
-        <ul class="list-group list-group-horizontal p-0">
-          <li class="list-group-item border-0 text-center w-50">
-            <a href="{% url 'new_topic' %}" class="btn">
-              <img src="{% static 'icons/compose.svg' %}">
-              <small class="text-muted">موضوع</small>
-            </a>
-          </li>
-          <li class="list-group-item border-0 text-center w-50">
-            <a href="{% url 'new_community' %}" class="btn">
-              <img src="{% static 'icons/bookmark.svg' %}">
-              <small class="text-muted">مجتمع</small>
-            </a>
-          </li>
-        </ul>
-      </div>
+<div class="bg-white p-3 shadow-sm mb-4">
+  <h5><small class="font-weight-bolder">أضف محتوى</small></h5>
+  <ul class="list-group list-group-horizontal p-0">
+    <li class="list-group-item border-0 text-center w-50">
+      <a href="{% url 'new_topic' %}" class="btn">
+        <img src="{% static 'icons/compose.svg' %}">
+        <small class="text-muted">موضوع</small>
+      </a>
+    </li>
+    <li class="list-group-item border-0 text-center w-50">
+      <a href="{% url 'new_community' %}" class="btn">
+        <img src="{% static 'icons/bookmark.svg' %}">
+        <small class="text-muted">مجتمع</small>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="bg-white p-3 shadow-sm  mb-4">
+  <h5><small class="font-weight-bolder">استكشف مجتمعات أخرى</small></h5>
+  <form method="GET">
+    <select class="custom-select custom-select-sm">
+      <option selected>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+  </form>
+</div>
 {% endblock %}
