@@ -13,6 +13,13 @@ def home(request):
     return render(request, 'app/home.html', context)
 
 
+def community(request, community_id):
+    community = get_object_or_404(Community, pk=community_id)
+    topics = community.topics.all()
+    context = {'community':community, 'topics':topics}
+    return render(request, 'app/community.html', context)
+
+
 def topic(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     posts = topic.posts.all() 

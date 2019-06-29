@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <header>
@@ -16,4 +17,24 @@
     {% endfor %}
 </ul>
 
+{% endblock %}
+
+{% block aside %}
+<div class="bg-white p-3 shadow-sm">
+        <h5><small class="font-weight-bolder">أضف محتوى</small></h5>
+        <ul class="list-group list-group-horizontal p-0">
+          <li class="list-group-item border-0 text-center w-50">
+            <a href="{% url 'new_topic' %}" class="btn">
+              <img src="{% static 'icons/compose.svg' %}">
+              <small class="text-muted">موضوع</small>
+            </a>
+          </li>
+          <li class="list-group-item border-0 text-center w-50">
+            <a href="{% url 'new_community' %}" class="btn">
+              <img src="{% static 'icons/bookmark.svg' %}">
+              <small class="text-muted">مجتمع</small>
+            </a>
+          </li>
+        </ul>
+      </div>
 {% endblock %}

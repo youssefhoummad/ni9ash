@@ -28,7 +28,7 @@ class Topic(models.Model):
 
 
     def __str__(self):
-        return textwrap.shorten(self.subject, width=30, placeholder="...")
+        return self.subject
 
 
 
@@ -42,6 +42,10 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.CASCADE)
     votes_pos = models.IntegerField(default=0)
     votes_neg = models.IntegerField(default=0)
+
+
+    def votes(self):
+        return self.votes_pos - self.votes_neg
 
 
     def __str__(self):
