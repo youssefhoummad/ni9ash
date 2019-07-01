@@ -15,7 +15,7 @@
   {% endif %}
 
   <!-- nothing -->
-  {% if posts.count > 1 %}
+  {% if comments %}
   <div class="w-100 text-right clearfix mb-3">
     <h5 class="d-inline">
       التعليقات
@@ -34,19 +34,8 @@
   {% endif %}
 
   <!-- Comment post -->
-  <ul class="list-unstyled w-100 p-0">
-      {% if posts.count > 1 %}
-          {% for post in posts %}
-              {% if forloop.first is False %}
-                  {% include 'app/_post.html' %}
-              {% endif %}
-          {% endfor %}
-      {% else %}
-          <li class="card border-0 shadow-sm rounded text-right mb-5 p-3">
-              لا يوجد أي تعليق
-          </li>
-      {% endif %}
-  </ul>
+  {% include 'app/_thread.html'%}
+
 {% endblock %}
 
 {% block aside %}

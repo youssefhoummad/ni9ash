@@ -21,36 +21,45 @@ class Community(models.Model):
 
 class Topic(models.Model):
     subject = models.CharField(max_length=250)
+    message = models.TextField(max_length=4000)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='topics', on_delete=models.CASCADE)
+    updated_at = models.DateTimeField(auto_now_add=True)
     community = models.ForeignKey(Community, related_name='topics', on_delete=models.CASCADE)
 
 
     def __str__(self):
         return self.subject
+    
+    def get_message(self):
+        return mark_safe(markdown(self.message, safe_mode='escape'))
 
 
 
 
-class Post(models.Model):
+class Comment(models.Model):
     message = models.TextField(max_length=4000)
-    created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)    
+    created_by = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
     updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topic, related_name='posts', on_delete=models.CASCADE)
-    votes_pos = models.IntegerField(default=0)
-    votes_neg = models.IntegerField(default=0)
+    topic = models.ForeignKey(Topic, related_name='comments', on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', null=True, related_name='comments', on_delete=models.CASCADE)
 
-
-    def votes(self):
-        return self.votes_pos - self.votes_neg
+    def has_child(self):
+        if self.comments.exists():
+            return True
+        return False
+    
+    def has_parent(self):
+        if self.parent.exists():
+            return True
+        return False
 
 
     def __str__(self):
         return textwrap.shorten(self.message, width=450, placeholder="...")
 
 
-    def get_message_as_markdown(self):
+    def get_message(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))

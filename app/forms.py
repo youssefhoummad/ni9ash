@@ -1,23 +1,25 @@
 from django import forms
-from .models import Post, Topic, Community
+from .models import Comment, Topic, Community
 
 
-class PostForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
+
     # this def for remove label
     def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
+        super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['message'].label = ''
+     
+    #Hidden value to get a child's parent
+    parent = forms.CharField(widget=forms.HiddenInput(
+                            attrs={'class': 'parent'}), required=False)
 
     class Meta:
-        model = Post
-        fields = ['message', ]
+        model = Comment
+        fields = ['message', 'parent']
 
 
 
 class TopicForm(forms.ModelForm):
-    message = forms.CharField(widget=forms.Textarea(
-        attrs={'rows': 10, 'placeholder': 'ماذا يجول بخاطرك؟.'}
-    ), max_length=4000)
 
     class Meta:
         model = Topic

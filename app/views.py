@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User, Community, Topic, Post
-from .forms import PostForm, TopicForm, CommunityForm
+from .models import User, Community, Topic, Comment
+from .forms import CommentForm, TopicForm, CommunityForm
 
 
 
@@ -22,21 +22,20 @@ def community(request, community_id):
 
 def topic(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
-    posts = topic.posts.all() 
-    context = {'topic':topic, 'posts':posts}
+    comments = topic.comments.all() 
+    context = {'topic':topic, 'comments':comments}
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = CommentForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.created_by = request.user
-            post.topic = topic
-            post.save()            
+            comment = form.save(commit=False)
+            comment.created_by = request.user
+            comment.topic = topic
+            comment.save()            
             messages.success(request, 'نُشِر تعليقك')
             return redirect('topic', topic.id)
     else:
-        form = PostForm()
+        form = CommentForm()
         context['form'] = form
     return render(request, 'app/topic.html', context)
 
@@ -51,14 +50,10 @@ def new_topic(request):
         form = TopicForm(request.POST)
         if form.is_valid():
             topic = form.save(commit=False)
+            topic.message = form.cleaned_data.get('message')
             topic.created_by = request.user
             topic.save()
 
-            post = Post.objects.create(
-                message=form.cleaned_data.get('message'),
-                topic=topic,
-                created_by=request.user
-            )
             messages.success(request, 'نُشِر موضوعك')
             return redirect('topic', topic.id)
     else:
