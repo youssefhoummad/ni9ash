@@ -7,9 +7,13 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.search, name="search"),
-    path('topic/<int:topic_id>/', views.topic, name="topic"),
-    path('community/<int:community_id>/', views.community, name="community"),
-    path('new_topic/', views.new_topic, name="new_topic"),
-    path('new_community/', views.new_community, name="new_community"),
-    # path('cart/', views.cart, name="cart"),
+
+    path('posts/<int:community_id>', views.posts, name="posts"),
+    path('post/<int:id>/', views.post, name="post"),
+    path('post/add', views.add_post, name="add_post"),
+    path('post/<int:id>/edit/', views.update_post, name="update_post"),
+
+    path('communities/', views.communities, name="communities"),
+    # path('community/<int:id>/', views.community, name="community"),
+    path('community/add/', views.add_community, name="add_community"),
     ]

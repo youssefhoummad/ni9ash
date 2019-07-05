@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul class="list-unstyled w-100 p-0">
+    {% for post in posts %}
+        {% include 'app/_post.html'%}
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links btn-group" role="group">
+        {% if posts.has_previous %}
+            <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+            <a class="btn btn-secondary" href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        {% if posts.has_next %}
+            <a class="btn btn-secondary" href="?page={{ posts.next_page_number }}">next</a>
+            <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+{% block aside %}
+
+{% if this_community %}
+<div class="bg-white p-3 shadow-sm mb-4">
+    <h5><small class="font-weight-bolder">{{ this_community.name }}</small></h5>
+    <p> {{ this_community.description }} </p>
+</div>
+{% endif %}
+
+<div class="bg-white p-3 shadow-sm mb-4">
+    <h5 class="font-weight-bold">مجتمعات</h5>
+    {% for community in communities %}
+    <a href="{% url 'posts' community.id%}"><h5 class="badge bg-purple text-light">{{ community.name }}</h5></a>
+    {% endfor %}
+</div>
+{% endblock %}

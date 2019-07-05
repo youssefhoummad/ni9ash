@@ -1,0 +1,36 @@
+{% load static %}
+<div class="card mb-3">     
+    <div class="card-body mr-2">
+        <h5 class="card-title font-weight-bold">
+            <a href="{% url 'post' post.id %}"> 
+            {{ post.title}}
+            </a>
+        </h5>
+        <div class="card-text">
+                {%  if '/post/' in  request.path %}
+                    {{post.content}}
+                {% else %}
+                    {{post.content | truncatewords:35}}
+                {% endif %}
+        </div>
+    </div>
+
+    <!-- ------ auther pub avatar ---- -->
+    <div class="card-footer p-0 pb-1 pr-3">
+        <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
+        <small class="h6 ml-3">{{post.created_by}}</small>
+        <small class="text-muted ml-3">{{post.created_at}}</small>
+    </div>
+
+    <!-- ------ votes boutons ---- -->
+    <div class="post-control-button ">
+        <a href="" class="btn btn-control btn-sm bg-success rounded-circle">
+            <span class="text-light font-weight-bold">+</span>
+        </a>
+        <div class="font-weight-bold text-center">17</div>
+        <a href="" class="btn btn-control btn-sm bg-danger rounded-circle">
+            <span class="text-light font-weight-bold">-</span>
+        </a>
+
+    </div>
+</div>

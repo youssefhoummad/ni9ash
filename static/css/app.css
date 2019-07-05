@@ -1,22 +1,20 @@
-@import url(//fonts.googleapis.com/earlyaccess/notonaskharabic.css);
-@import url(//fonts.googleapis.com/earlyaccess/notokufiarabic.css);
 
-body{
-    background-color: #f2f2f2;
-    font-family: 'Noto Naskh Arabic', serif;
-    font-size: 17px; 
-    line-height: 2em;
-}
+@import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
 
-main{
-    min-height: calc(100vh - 260px)
+html, body{
+    background-color: #edf2f6;
+    line-height: 2rem;
+    direction: rtl;
+    text-align:right
 }
 
 h1, h2, h3, h4, h5{
-    font-family: 'Noto Kufi Arabic', sans-serif;
-    color: blue;
+    font-family: 'Cairo', sans-serif;
 }
 
+main{
+    min-height: calc(100vh - 151px)
+}
 
 a{
     color: inherit;
@@ -26,32 +24,87 @@ a{
 a:hover{
     color: inherit;
     text-decoration: none;
+} 
+
+
+/* ____________ colors ________________ */
+.secondry{
+    color: #9a9fbf !important;
+}
+
+.purple{
+    color: #7c5ac2;
+}
+
+.red{
+    color: #f92552 !important;
+}
+
+.danger{
+    color: #f92552 !important;
+}
+
+.green{
+    color:#08ddc1 !important;
+}
+
+.success{
+    color:#08ddc1 !important;
+}
+
+.blue{
+    color: #38a9ff !important;
+}
+
+.primary{
+    color: #3f4257 !important;
+}
+
+.bg-primary{
+    background-color: #3f4257 !important;
+}
+
+.bg-secondry{
+   background-color: #9a9fbf !important;
+}
+
+.bg-success{
+    background-color:#08ddc1 !important;
+}
+
+.bg-danger{
+    background-color: #f92552 !important;
+}
+
+.bg-purple{
+    background-color: #7c5ac2;
+}
+
+/* ________________________________ */
+.card{
+    border: 1px solid #e6ecf5;
+}
+
+.card-footer{
+    border-top: 0;
 }
 
 
-.votes {
-    line-height: 150%;
+.post-control-button{
+    position: absolute;
+    top: 10px;
+    right: -17px;
 }
 
-article img{
-    max-width: 100%;
+.post-control-button a{
+    display: block;
+    width: 34px;
+    height: 34px;
+    text-align: center;
 }
 
-.nav-tabs{
-    border-bottom: 2px solid blue;
-}
 
-.nav-link {
-    padding: 3px 15px;
-    margin-bottom: 2px;
-    font-family: 'Noto Kufi Arabic', sans-serif;
-    font-size: 14px;
-}
-
-.top-arrow, .bottom-arrow{
-    filter: invert(7%) sepia(100%) saturate(7194%) hue-rotate(247deg) brightness(106%) contrast(140%);
-}
-
-.btn{
-    border-radius: 0%
+/* fix bootstrap */
+.dropdown-menu-right{
+    right: -90px;
 }

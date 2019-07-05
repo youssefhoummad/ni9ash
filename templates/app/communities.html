@@ -3,10 +3,11 @@
 {% block content %}
 
 <ul class="list-unstyled w-100 p-0">
-    {% for topic in topics %}
-    <li>
-        <a href="{% url 'topic' topic.id %}">
-            {% include 'app/_topic.html'%}
+    {% for community in communities %}
+    <li class="card p-3 mb-3">
+        <a href="{% url 'community' community.id %}">
+            <h5>{{ community.name}}</h5>
+            {{community.description}}
         </a>
     </li>
     {% endfor %}

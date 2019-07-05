@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <!-- topic post -->
+  {% include 'app/_post.html'%}
+
+  <!-- form replay -->
+  {% if user.is_authenticated %}
+  <form method="POST" action="" class="mb-4 clearfix" novalidate>
+    {% include '_form.html' %}
+    <button type="submit" class="btn btn-success float-left">أضف ردا</button>
+  </form>
+  {% endif %}
+
+  <h5 class="mt-5">التعليقات</h5>
+
+  <!-- Comment post -->
+  <div>
+    {% for post in post.comments %}
+      {% include 'app/_post.html'%}
+    {% endfor%}
+  </div>
+
+
+{% endblock %}
+
+{% block aside %}
+  <div class="bg-white p-3 shadow-sm">
+      <h5><small class="font-weight-bolder">{{ post.community.name }}</small></h5>
+      <p> {{ post.community.description }} </p>
+  </div>
+{% endblock %}

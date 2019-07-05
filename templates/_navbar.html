@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{% url 'home' %}"><h5 class="mb-0 font-weight-bold">المدونة</h5></a>
+    <form class="form-inline my-2 my-lg-0 mr-2">
+        <input class="form-control mr-sm-2 ml-2 bg-secondry border-0" type="search" placeholder="بحث" aria-label="Search">
+    </form>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+            <div class="navbar-nav ml-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="userMenu">
+                        <a class="dropdown-item" href="{% url 'account' %}">تعديل الحساب</a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">تغيير كلمة المرور</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <form class="form-inline">
+                <a href="{% url 'login' %}" class="btn btn-outline-light mr-2">دخول</a>
+                <a href="{% url 'signup' %}" class="btn btn-light mr-2">تسجيل</a>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>

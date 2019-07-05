@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
+    # 'django.contrib.humanize',
 
     'crispy_forms',
     
     'app',
     'accounts',
+    # 'comments',
 ]
 
 MIDDLEWARE = [

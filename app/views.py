@@ -1,43 +1,55 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from .models import User, Community, Topic, Comment
-from .forms import CommentForm, TopicForm, CommunityForm
+from django.core.paginator import Paginator
 
 
-
-def home(request):
-    topics = Topic.objects.all()
-    context = {'topics':topics, }
-    return render(request, 'app/home.html', context)
+from .models import User, Community, Post , Comment
+from .forms import PostForm, CommunityForm , CommentForm 
 
 
-def community(request, community_id):
-    community = get_object_or_404(Community, pk=community_id)
-    topics = community.topics.all()
-    context = {'community':community, 'topics':topics}
-    return render(request, 'app/community.html', context)
 
-
-def topic(request, topic_id):
-    topic = get_object_or_404(Topic, pk=topic_id)
-    comments = topic.comments.all() 
-    context = {'topic':topic, 'comments':comments}
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.created_by = request.user
-            comment.topic = topic
-            comment.save()            
-            messages.success(request, 'نُشِر تعليقك')
-            return redirect('topic', topic.id)
+def posts(request, community_id=None):
+    communities = Community.objects.all()
+    if community_id:
+        community = get_object_or_404(Community, pk=community_id)
+        all_posts = community.posts.all()
     else:
-        form = CommentForm()
-        context['form'] = form
-    return render(request, 'app/topic.html', context)
+        community = None
+        all_posts = Post.objects.all()
+
+
+    paginator = Paginator(all_posts, 3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    context = {'posts':posts, 'communities':communities, 'this_community':community}
+    return render(request, 'app/posts.html', context)
+
+
+
+
+def post(request, id):
+    post = get_object_or_404(Post, pk=id)
+
+    initial_for_form = {'content_type':post.content_type, 'object_id':post.id}
+    form = CommentForm(request.POST or None, initial=initial_for_form)
+    if form.is_valid():
+        form.save(user=request.user)
+    context = {'post':post, 'form':form}
+    return render(request, 'app/post.html', context)
+
+
+def communities(request):
+    communities = Community.objects.all()
+    context = {'communities':communities}
+    return render(request, 'app/communities.html', context)
+
+
+# def community(request, id):
+#     community = get_object_or_404(Community, pk=id)
+#     context = {'posts':community.posts.all()}
+#     return render(request, 'app/posts.html', context)
 
 
 def search(request, query):
@@ -45,34 +57,44 @@ def search(request, query):
 
 
 @login_required
-def new_topic(request):
-    if request.method == 'POST':
-        form = TopicForm(request.POST)
-        if form.is_valid():
-            topic = form.save(commit=False)
-            topic.message = form.cleaned_data.get('message')
-            topic.created_by = request.user
-            topic.save()
-
-            messages.success(request, 'نُشِر موضوعك')
-            return redirect('topic', topic.id)
-    else:
-        form = TopicForm()
-        context = {'form': form}
-
-    return render(request, 'app/new_topic.html', context)
+def add_post(request):
+    form = PostForm(request.POST or None)
+    context = {'form': form}
+    if form.is_valid():
+        post = form.save(user=request.user)
+        messages.success(request, 'نُشِر موضوعك')
+        return redirect('post', post.id)
+    return render(request, 'app/add_post.html', context)
 
 
-@login_required
-def new_community(request):
+def update_post(request, id):
+    post = get_object_or_404(Post, pk=id)
+    form = PostForm(request.POST)
+    if form.is_valid():
+        post.title = form.cleaned_data['title']
+        post.content = form.cleaned_data['content']
+        post.save()
+        messages.success(request, 'عُدل موضوعك')
+        return redirect('post', post.id)
+    
+    form = PostForm(instance=post)
+    context = {'form':form, 'post':post}
+    return render(request, 'app/add_post.html', context)
+
+
+
+# @login_required
+def add_community(request):
     if request.method == 'POST':
         form = CommunityForm(request.POST)
         if form.is_valid():
             community = form.save()
             messages.success(request, 'أٌنشِأ المجتمع الجديد')
-            return redirect('community', community.id) # temp some probleme if two user create  
-    else:                                                                    # community in some time
-        form = CommunityForm()
-        context = {'form': form}
+            return redirect('posts', community.id)
+    form = CommunityForm()
+    context = {'form': form}
 
     return render(request, 'app/new_community.html', context)
+
+# home page is posts url
+home = posts
