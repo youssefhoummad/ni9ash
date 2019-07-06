@@ -6,20 +6,13 @@
   <!-- topic post -->
   {% include 'app/_post.html'%}
 
-  <!-- form replay -->
-  {% if user.is_authenticated %}
-  <form method="POST" action="" class="mb-4 clearfix" novalidate>
-    {% include '_form.html' %}
-    <button type="submit" class="btn btn-success float-left">أضف ردا</button>
-  </form>
-  {% endif %}
 
   <h5 class="mt-5">التعليقات</h5>
 
   <!-- Comment post -->
   <div>
-    {% for post in post.comments %}
-      {% include 'app/_post.html'%}
+    {% for comment in post.comments.all %}
+      {% include 'app/_comment.html'%}
     {% endfor%}
   </div>
 

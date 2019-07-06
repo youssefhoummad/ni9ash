@@ -7,11 +7,11 @@
             </a>
         </h5>
         <div class="card-text">
-                {%  if '/post/' in  request.path %}
-                    {{post.content}}
-                {% else %}
-                    {{post.content | truncatewords:35}}
-                {% endif %}
+            {%  if '/post/' in  request.path %}
+                {{post.content}}
+            {% else %}
+                {{post.content | truncatewords:35}}
+            {% endif %}
         </div>
     </div>
 
@@ -31,6 +31,16 @@
         <a href="" class="btn btn-control btn-sm bg-danger rounded-circle">
             <span class="text-light font-weight-bold">-</span>
         </a>
-
     </div>
 </div>
+
+{%  if '/post/' in  request.path %}
+    <!-- form comment -->
+    {% if user.is_authenticated %}
+      <form method="POST" action="" class="mb-4 clearfix" novalidate>
+        {% include '_form.html' %}
+        <button type="submit" class="btn btn-success float-left">أضف ردا</button>
+      </form>
+    {% endif %}
+
+{% endif %}
