@@ -1,27 +1,36 @@
 {% load static %}
-<div class="card mb-3">     
-    <div class="card-body mr-2">
-        <div class="card-text">
-            {{comment.content}}
+
+        <div class="card-body mr-2">
+            <div class="card-text">
+                    {{comment.content}}
+            </div>
         </div>
-    </div>
+    
+        <!-- ------ auther pub avatar ---- -->
+        <div class="card-footer p-0 pb-1 pr-3">
+            <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
+            <small class="h6 ml-3">{{comment.created_by}}</small>
+            <small class="text-muted ml-3" dir="rtl">{{comment.created_at | timesince}}</small>
+            <small class="text-muted ml-3"><a href="">أضف ردا</a></small>
+        </div>
+        
+        <!-- form comment -->
+        {% if user.is_authenticated %}
+          <form method="POST" action="" class="m-2 clearfix" novalidate >
+            {% include '_form.html' %}
+            <input type="hidden" name="parent_id" value="{{comment.id}}"/>
+            <button type="submit" class="btn btn-success float-left">أضف ردا</button>
+          </form>
+        {% endif %}
 
-    <!-- ------ auther pub avatar ---- -->
-    <div class="card-footer p-0 pb-1 pr-3">
-        <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
-        <small class="h6 ml-3">{{comment.created_by}}</small>
-        <small class="text-muted ml-3">{{comment.created_at}}</small>
-        <a href="">
-            <small class="text-muted ml-3">رد</small>
-        </a>
-    </div>
-</div>
+        
+        {% if comment.comments.all.exists %}
+            {% for comment in comment.comments.all %}
+            <div class="mr-4 border-pointed-right {% autoescape off %}{% cycle red green %}{% endautoescape %}">
+                {% include 'app/_comment.html'%}
+            </div>
+            {% endfor %}
+        {% endif %}
 
-<!-- form comment -->
-{% if user.is_authenticated %}
-    <form method="POST" action="" class="mb-4 clearfix" novalidate>
-    {% include '_form.html' %}
-    <input type="hidden" name="parent_id" value="{{ comment.id }}" />
-    <button type="submit" class="btn btn-success float-left">أضف ردا</button>
-    </form>
-{% endif %}
+    
+    

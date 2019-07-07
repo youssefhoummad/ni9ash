@@ -108,3 +108,16 @@ a:hover{
 .dropdown-menu-right{
     right: -90px;
 }
+
+
+
+/* blockquote{
+    border-right: 5px solid #ccc;
+    font-size: 1rem !important;
+    padding-right: 1rem;
+    margin-right: 1.5rem;
+} */
+
+.border-pointed-right{
+    border-right: 2px dotted #eee;
+}

@@ -5,7 +5,8 @@ from django.core.paginator import Paginator
 
 
 from .models import User, Community, Post , Comment
-from .forms import PostForm, CommunityForm , CommentForm 
+from .forms import PostForm, CommunityForm , CommentForm
+from .utils import get_object_or_none
 
 
 
@@ -33,6 +34,13 @@ def post(request, id):
         comment = form.save(commit=False)
         comment.created_by = request.user
         comment.post = post
+        parent_id = request.POST.get("parent_id")
+        try:
+            parent_id = int(parent_id)
+            parent = get_object_or_none(Comment, id=parent_id)
+        except:
+            parent = None
+        comment.parent = parent
         comment.save()
 
         return redirect('post', post.id)
