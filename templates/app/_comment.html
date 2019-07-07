@@ -16,7 +16,8 @@
         
         <!-- form comment -->
         {% if user.is_authenticated %}
-          <form method="POST" action="" class="m-2 clearfix" novalidate style="display: none"
+          <form method="POST" action="" class="m-2 clearfix" novalidate style="display: none">
+            {% csrf_token %}
             {% include '_form.html' %}
             <input type="hidden" name="parent_id" value="{{comment.id}}"/>
             <button type="submit" class="btn btn-success float-left">أضف ردا</button>

@@ -5,6 +5,7 @@
 
 {% block content %}
 <form method="POST" novalidate dir="rtl">
+    {% csrf_token %}
     {% include '_form.html'%}
     <button type="submit" class="btn btn-success">انشر الموضوع</button>
 </form>

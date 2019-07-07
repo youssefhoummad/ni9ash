@@ -39,6 +39,7 @@
     <!-- form comment -->
     {% if user.is_authenticated %}
       <form method="POST" action="" class="mb-4 clearfix" novalidate>
+        {% csrf_token %}
         {% include '_form.html' %}
         <button type="submit" class="btn btn-success float-left">أضف ردا</button>
       </form>

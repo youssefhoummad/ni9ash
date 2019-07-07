@@ -1,5 +1,6 @@
 <div class="">
     <form action="{% url 'search' %}" method="GET" accept-charset="utf-8">
+        {% csrf_token %}
       <div class="form-group my-0">
         <input id="searchForm" class="form-control border-0" name="query" style="background-color: #f2f2f2;" placeholder="اكتب ما تبحث عنه...">
       </div>

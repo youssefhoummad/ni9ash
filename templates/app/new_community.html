@@ -4,6 +4,7 @@
 
 {% block content %}
 <form method="post" novalidate>
+    {% csrf_token %}
     {% include '_form.html'%}
     <button type="submit" class="btn btn-success">انشئ المجتمع</button>
 </form>
