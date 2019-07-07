@@ -11,12 +11,12 @@
             <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
             <small class="h6 ml-3">{{comment.created_by}}</small>
             <small class="text-muted ml-3" dir="rtl">{{comment.created_at | timesince}}</small>
-            <small class="text-muted ml-3"><a href="">أضف ردا</a></small>
+            <a href="#" class="replay"><small class="text-muted ml-3">أضف ردا</small></a>
         </div>
         
         <!-- form comment -->
         {% if user.is_authenticated %}
-          <form method="POST" action="" class="m-2 clearfix" novalidate >
+          <form method="POST" action="" class="m-2 clearfix" novalidate style="display: none"
             {% include '_form.html' %}
             <input type="hidden" name="parent_id" value="{{comment.id}}"/>
             <button type="submit" class="btn btn-success float-left">أضف ردا</button>
@@ -31,6 +31,8 @@
             </div>
             {% endfor %}
         {% endif %}
+
+
 
     
     

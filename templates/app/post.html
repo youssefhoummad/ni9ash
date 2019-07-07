@@ -25,3 +25,14 @@
       <p> {{ post.community.description }} </p>
   </div>
 {% endblock %}
+
+{% block javascript %}
+<script>
+$(document).ready(function(){
+    $('.replay').click(function(event) {
+      event.preventDefault();
+      $(this).parent().next('form').toggle();
+    });
+});
+</script>
+{% endblock %}
