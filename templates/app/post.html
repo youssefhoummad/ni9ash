@@ -10,11 +10,11 @@
   <h5 class="mt-5">التعليقات</h5>
 
   <!-- Comment post -->
-  <div class="card mb-3">
-    {% for comment in post.comments.all %}
+  {% for comment in post.comments.all %}
+    <div class="mb-3 card-comment">
       {% include 'app/_comment.html'%}
+    </div>
     {% endfor%}
-  </div>
 
 
 {% endblock %}
@@ -31,7 +31,7 @@
 $(document).ready(function(){
     $('.replay').click(function(event) {
       event.preventDefault();
-      $(this).parent().next('form').toggle();
+      $(this).parent().next().next('form').toggle();
     });
 });
 </script>

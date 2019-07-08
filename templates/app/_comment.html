@@ -1,19 +1,31 @@
 {% load static %}
 
-        <div class="card-body mr-2">
+    <div class="card mb-3">     
+        <div class="card-body mr-5">
             <div class="card-text">
-                    {{comment.content}}
+                {{comment.content}}
             </div>
         </div>
     
         <!-- ------ auther pub avatar ---- -->
-        <div class="card-footer p-0 pb-1 pr-3">
+        <div class="card-footer p-0 pb-1 pr-3 mr-4">
             <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
             <small class="h6 ml-3">{{comment.created_by}}</small>
-            <small class="text-muted ml-3" dir="rtl">{{comment.created_at | timesince}}</small>
+            <small class="text-muted ml-3">قبل: {{comment.created_at | timesince}}</small>
             <a href="#" class="replay"><small class="text-muted ml-3">أضف ردا</small></a>
         </div>
-        
+    
+        <!-- ------ votes boutons ---- -->
+        <div class="post-control-button btn-comment ">
+            <a href="" class="btn btn-control btn-sm p-0" style="margin-bottom: 0.3em">
+                <img width="16" src="{% static 'icons/top.svg' %}"/>
+            </a>
+            <div class="text-center" style="line-height: 0.7em">17</div>
+            <a href="" class="btn btn-control btn-sm p-0">
+                <img width="16" src="{% static 'icons/bottom.svg' %}"/>
+            </a>
+        </div>
+
         <!-- form comment -->
         {% if user.is_authenticated %}
           <form method="POST" action="" class="m-2 clearfix" novalidate style="display: none">
@@ -24,16 +36,15 @@
           </form>
         {% endif %}
 
-        
+    
+
         {% if comment.comments.all.exists %}
             {% for comment in comment.comments.all %}
-            <div class="mr-4 border-pointed-right {% autoescape off %}{% cycle red green %}{% endautoescape %}">
+            <div class="mr-4 card-comment">
                 {% include 'app/_comment.html'%}
             </div>
             {% endfor %}
         {% endif %}
-
-
-
+      </div>
     
     
