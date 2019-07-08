@@ -28,8 +28,11 @@
 
 <div class="bg-white p-3 shadow-sm mb-4">
     <h5 class="font-weight-bold">أضف محتوى</h5>
-    <a class="btn btn-default btn-circle" href="{% url 'add_post' %}">
-        <i class="fa fa-check"></i>
+    <a class="btn" href="{% url 'add_post' %}">
+        <i data-feather="plus"></i>
+    </a>
+    <a class="btn" href="{% url 'add_community' %}">
+        <i data-feather="package"></i>
     </a>
 </div>
 

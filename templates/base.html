@@ -9,8 +9,6 @@
     <title>نقاش</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-
 
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     {% block stylesheet %}{% endblock %}
@@ -51,18 +49,24 @@
 </main>
 
 <footer class="text-center bg-primary p-2 mt-4 ">
-  <span class="text-muted text-monospace font-italic">youssefhoummad</span>
+  <span class="text-monospace font-italic font-weight-bold" style="color:#222">youssefhoummad</span><br>
+  <a href="https://www.github.com/youssefhoummad" target="_blank"><i data-feather="github"></i></a>
+  <a href="https://www.twitter.com/youssefhoummad" target="_blank"><i data-feather="twitter"></i></a>
+  <a href="#" target="_blank"><i data-feather="mail"></i></a>
 </footer>
 
   <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
   <script>
     $(document).ready(function(){
-    $('.btn-control').click(function(event) {
-      event.preventDefault();
+      $('.btn-control').click(function(event) {
+        event.preventDefault();
+      });
     });
-    });
+    feather.replace()
   </script>
   {% block javascript %}
   {% endblock %}
