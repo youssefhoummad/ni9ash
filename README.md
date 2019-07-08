@@ -1,10 +1,11 @@
-# Store tech
+# ni9ash
 
-web site build using Django 2.0.
+web site build using Django 2.2.
+clone of reddit/hsoub io
 
 ## Features
 
-- panel controle for admin to add device and brand.
+- panel controle for admin to add post and comments.
 - accounts users (login, signup, rese password).
 - search.
 
@@ -12,18 +13,15 @@ web site build using Django 2.0.
 
 To use this project, follow these steps:
 
-    $ git clone https://github.com/youssefhoummad/storetech.git
-    $ cd storetech
+    $ git clone https://github.com/youssefhoummad/ni9ash.git
+    $ cd ni9ash
     $ python manage.py migrate
-    $ python manage.py loaddata db.json
     $ python manage.py createsuperuser
     $ python manage.py runserver
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
 
 
 ## License: MIT
 
 ## visit the website
 
-- [https://storetech.herokuapp.com/](https://storetech.herokuapp.com/)
+- [https://ni9ash.herokuapp.com/](https://ni9ash.herokuapp.com/)
