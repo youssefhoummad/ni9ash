@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.html import mark_safe
 
+from markdown import markdown
 
 
 class Community(models.Model):
@@ -24,6 +26,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def markdown(self):
+        return mark_safe(markdown(self.content, safe_mode='escape'))
     
 
 
@@ -36,6 +41,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+    
+    def markdown(self):
+        return mark_safe(markdown(self.content, safe_mode='escape'))
     
     class Meta:
         ordering = ['-created_at']

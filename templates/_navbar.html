@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="{% url 'home' %}"><h5 class="mb-0 font-weight-bold">المدونة</h5></a>
-    <form class="form-inline my-2 my-lg-0 mr-2">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2 ml-2 bg-secondry border-0" type="search" placeholder="بحث" aria-label="Search">
-    </form>
+    {% include 'app/_search.html'%}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

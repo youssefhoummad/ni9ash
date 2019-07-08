@@ -28,11 +28,17 @@
 
 <div class="bg-white p-3 shadow-sm mb-4">
     <h5 class="font-weight-bold">أضف محتوى</h5>
-    <a class="btn" href="{% url 'add_post' %}">
-        <i data-feather="plus"></i>
+    {% if this_community %}
+    <a class="btn" href="{% url 'add_post' this_community.id %}">
+    {%  else %}
+    <a class="btn" href="{% url 'add_post' 0 %}">
+    {% endif %}
+        <i data-feather="plus"></i><br>
+        <span style="font-size: 70%" >موضوع جديد</span>
     </a>
     <a class="btn" href="{% url 'add_community' %}">
-        <i data-feather="package"></i>
+        <i data-feather="package"></i><br>
+        <span style="font-size: 70%" >مجتمع جديد</span>
     </a>
 </div>
 
@@ -46,7 +52,7 @@
 <div class="bg-white p-3 shadow-sm mb-4">
     <h5 class="font-weight-bold">مجتمعات</h5>
     {% for community in communities %}
-    <a href="{% url 'posts' community.id%}"><h5 class="badge bg-purple text-light">{{ community.name }}</h5></a>
+    <a href="{% url 'posts' community.id %}"><h5 class="badge bg-purple text-light">{{ community.name }}</h5></a>
     {% endfor %}
 </div>
 {% endblock %}

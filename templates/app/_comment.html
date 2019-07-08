@@ -1,16 +1,17 @@
 {% load static %}
 
-    <div class="card mb-3">     
+    <div class="card mb-3 {% cycle 'pg-white' 'bg-purple' %}"">     
         <div class="card-body mr-5">
             <div class="card-text">
-                {{comment.content}}
+                {{comment.markdown }}
             </div>
         </div>
     
         <!-- ------ auther pub avatar ---- -->
         <div class="card-footer p-0 pb-1 pr-3 mr-4">
-            <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
-            <small class="h6 ml-3">{{comment.created_by}}</small>
+            <!-- <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/> -->
+            <i data-feather="user"></i>
+            <small class="text-muted ml-3">{{comment.created_by}}</small>
             <small class="text-muted ml-3">قبل: {{comment.created_at | timesince}}</small>
             <a href="#" class="replay"><small class="text-muted ml-3">أضف ردا</small></a>
         </div>

@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q # complex query in database
+
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -54,13 +56,33 @@ def communities(request):
     return render(request, 'app/communities.html', context)
 
 
-def search(request, query):
-    pass
+def search(request):
+    query = request.GET.get('query')
+
+    communities = Community.objects.all()
+    community = None
+
+    all_posts = Post.objects.filter(
+                    Q(title__icontains=query)|
+                    Q(content__icontains=query))
+
+    paginator = Paginator(all_posts, 3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    context = {'posts':posts, 'communities':communities, 'this_community':community}
+    return render(request, 'app/posts.html', context)
+
 
 
 @login_required
-def add_post(request):
-    form = PostForm(request.POST or None)
+def add_post(request, community_id=None):
+    initial_data = {}
+    if community_id:
+        community = get_object_or_none(Community, pk=community_id)
+        if community:
+            initial_data = {'community':community}
+    form = PostForm(request.POST or None, initial=initial_data)
     context = {'form': form}
     if form.is_valid():
         post = form.save(commit=False)

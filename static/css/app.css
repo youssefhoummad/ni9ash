@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5{
 }
 
 main{
-    min-height: calc(100vh - 151px)
+    min-height: calc(100vh - 193px)
 }
 
 a{
@@ -80,10 +80,12 @@ a:hover{
     background-color: #7c5ac2;
 }
 
-/* ________________________________ */
+/* ____________ card ____________________ */
 .card{
-    border: 1px solid #e6ecf5;
+    border: none;
 }
+
+
 
 .card-footer{
     border-top: 0;
@@ -95,9 +97,14 @@ a:hover{
     right: 20px;
 }
 
+.card-comment .card-comment .card{
+    border-right: 1px dotted #ccc;
+}
+
 .btn-comment{
     position: absolute;
     top: 0px;
+    
 }
 
 /* fix bootstrap */
@@ -105,19 +112,3 @@ a:hover{
     right: -90px;
 }
 
-
-.card-comment{
-    border-right: 2px dotted #eee;
-    background-color: inherit;
-    border: none;
-}
-
-.btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-}

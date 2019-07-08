@@ -8,17 +8,19 @@
         </h5>
         <div class="card-text">
             {%  if '/post/' in  request.path %}
-                {{post.content}}
+                {{post.markdown}}
             {% else %}
-                {{post.content | truncatewords:35}}
+                {{post.markdown | truncatewords:35}}
             {% endif %}
         </div>
     </div>
 
     <!-- ------ auther pub avatar ---- -->
     <div class="card-footer p-0 pb-1 pr-3">
-        <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/>
-        <small class="h6 ml-3">{{post.created_by}}</small>
+
+        <!-- <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/> -->
+        <i data-feather="user"></i>
+        <small class="text-muted ml-3">{{post.created_by}}</small>
         <small class="text-muted ml-3">قبل: {{post.created_at | timesince}}</small>
         <small class="text-muted ml-3">{{post.all_comments.count }} تعليق</small>
     </div>
