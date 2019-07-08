@@ -86,7 +86,6 @@ a:hover{
 }
 
 
-
 .card-footer{
     border-top: 0;
 }
@@ -112,3 +111,13 @@ a:hover{
     right: -90px;
 }
 
+blockquote {
+    padding: .5rem;
+    margin-bottom: 0;
+}
+
+blockquote p{
+    margin-bottom: 0;
+    padding-right: .5rem;
+    border-right: .25rem solid #eceeef;
+}
