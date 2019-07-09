@@ -93,7 +93,7 @@ def add_post(request, community_id=None):
         return redirect('post', post.id)
     return render(request, 'app/add_post.html', context)
 
-
+@login_required
 def update_post(request, id):
     post = get_object_or_404(Post, pk=id)
     form = PostForm(request.POST)
@@ -110,7 +110,7 @@ def update_post(request, id):
 
 
 
-# @login_required
+@login_required
 def add_community(request):
     if request.method == 'POST':
         form = CommunityForm(request.POST)
