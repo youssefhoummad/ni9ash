@@ -26,13 +26,21 @@
 
     <!-- ------ votes boutons ---- -->
     <div class="post-control-button ">
-        <a href="" class="btn btn-control btn-sm p-0" style="margin-bottom: 0.3em">
-            <i data-feather="chevron-up"></i>
-        </a>
-        <div class="font-weight-bold text-center" style="line-height: 0.7em">17</div>
-        <a href="" class="btn btn-control btn-sm p-0">
-            <i data-feather="chevron-down"></i>
-        </a>
+        <form action="{% url 'vote_post' post.id %}" method="POST"> 
+                {% csrf_token %}
+            <input type="hidden" name="activity_type" value="U"/>
+            <button type="submit" name="vote" class="btn btn-control btn-sm p-0" style="margin-bottom: 0.3em">
+                <i data-feather="chevron-up"></i>
+            </button>
+        </form>
+        <div class="font-weight-bold text-center" style="line-height: 0.7em">{{ post.votes_count }}</div>
+        <form action="{% url 'vote_post' post.id %}" method="POST"> 
+                {% csrf_token %}
+            <input type="hidden" name="activity_type" value="D"/>
+            <button type="submit" name="vote" class="btn btn-control btn-sm p-0">
+                <i data-feather="chevron-down"></i>
+            </button>
+        </form>
     </div>
 </div>
 

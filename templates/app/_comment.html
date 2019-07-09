@@ -16,14 +16,32 @@
         </div>
     
         <!-- ------ votes boutons ---- -->
-        <div class="post-control-button btn-comment ">
+        <!-- <div class="post-control-button  ">
             <a href="" class="btn btn-control btn-sm p-0">
                 <i data-feather="chevron-up"></i>
             </a>
-            <div class="text-center" style="line-height: 0.7em">17</div>
+            <div class="text-center" style="line-height: 0.7em">{{ comment.votes_count }}</div>
             <a href="" class="btn btn-control btn-sm p-0">
                 <i data-feather="chevron-down"></i>
             </a>
+        </div> -->
+
+        <div class="post-control-button btn-comment">
+            <form action="{% url 'vote_comment' comment.id %}" method="POST"> 
+                {% csrf_token %}
+                <input type="hidden" name="activity_type" value="U"/>
+                <button type="submit" name="vote" class="btn btn-control btn-sm p-0" style="margin-bottom: 0.3em">
+                    <i data-feather="chevron-up"></i>
+                </button>
+            </form>
+            <div class="text-center" style="line-height: 0.7em">{{ comment.votes_count }}</div>
+            <form action="{% url 'vote_comment' comment.id %}" method="POST"> 
+                {% csrf_token %}
+                <input type="hidden" name="activity_type" value="D"/>
+                <button type="submit" name="vote" class="btn btn-control btn-sm p-0">
+                    <i data-feather="chevron-down"></i>
+                </button>
+            </form>
         </div>
 
         <!-- form comment -->

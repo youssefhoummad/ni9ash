@@ -123,5 +123,30 @@ def add_community(request):
 
     return render(request, 'app/new_community.html', context)
 
+
+def vote_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    user = User.objects.first() #temp
+
+    if request.POST.get('activity_type') == 'U':
+        post.vote_up(user=user)
+    if request.POST.get('activity_type') == 'D':
+        post.vote_down(user=user)
+        
+    return redirect('post', post_id)
+
+
+def vote_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    user = User.objects.first() #temp
+
+    if request.POST.get('activity_type') == 'U':
+        comment.vote_up(user=user)
+    if request.POST.get('activity_type') == 'D':
+        comment.vote_down(user=user)
+        
+    return redirect('post', comment.post.id)
+    
+
 # home page is posts url
 home = posts
