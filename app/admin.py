@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Community, Post, Comment
+from .models import Community, Post, Comment, Vote
 
 # Register your models here.
 
@@ -15,3 +15,4 @@ class PostModelAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostModelAdmin)
 admin.site.register(Community)
 admin.site.register(Comment)
+admin.site.register(Vote)

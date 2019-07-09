@@ -51,11 +51,26 @@ class Post(models.Model):
         downs = self.votes.filter(activity_type=Vote.DOWN_VOTE).count()
         return ups - downs
     
-    def vote_up(self, user): 
-        self.votes.create(activity_type=Vote.UP_VOTE, created_by=user)
+    def vote_up(self, user):
+        last_vote = self.votes.last()
+        if last_vote and last_vote.activity_type == Vote.DOWN_VOTE:
+            last_vote.delete()
+            return
+
+        voted = self.votes.filter(activity_type=Vote.UP_VOTE, created_by=user)
+        if not voted:
+            self.votes.create(activity_type=Vote.UP_VOTE, created_by=user)
     
-    def vote_down(self, user): 
-        self.votes.create(activity_type=Vote.DOWN_VOTE, created_by=user)
+    def vote_down(self, user):
+        last_vote = self.votes.last()
+        if last_vote and last_vote.activity_type == Vote.UP_VOTE:
+            last_vote.delete()
+            return
+        
+        voted = self.votes.filter(activity_type=Vote.DOWN_VOTE, created_by=user)
+        if not voted:
+            self.votes.create(activity_type=Vote.DOWN_VOTE, created_by=user)
+
 
     def content_type(self):
         return ContentType.objects.get_for_model(self)
@@ -84,11 +99,26 @@ class Comment(models.Model):
         downs = self.votes.filter(activity_type=Vote.DOWN_VOTE).count()
         return ups - downs
     
-    def vote_up(self, user): 
-        self.votes.create(activity_type=Vote.UP_VOTE, created_by=user)
+    def vote_up(self, user):
+        last_vote = self.votes.last()
+        if last_vote and last_vote.activity_type == Vote.DOWN_VOTE:
+            last_vote.delete()
+            return
+
+        voted = self.votes.filter(activity_type=Vote.UP_VOTE, created_by=user)
+        if not voted:
+            self.votes.create(activity_type=Vote.UP_VOTE, created_by=user)
     
     def vote_down(self, user):
-        self.votes.create(activity_type=Vote.DOWN_VOTE, created_by=user)
+        last_vote = self.votes.last()
+        if last_vote and last_vote.activity_type == Vote.UP_VOTE:
+            last_vote.delete()
+            return
+        
+        voted = self.votes.filter(activity_type=Vote.DOWN_VOTE, created_by=user)
+        if not voted:
+            self.votes.create(activity_type=Vote.DOWN_VOTE, created_by=user)
+
 
     def content_type(self):
         return ContentType.objects.get_for_model(self)

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 
 
-from .models import User, Community, Post , Comment
+from .models import User, Community, Post, Comment, Vote
 from .forms import PostForm, CommunityForm , CommentForm
 from .utils import get_object_or_none
 
@@ -124,6 +124,7 @@ def add_community(request):
     return render(request, 'app/new_community.html', context)
 
 
+@login_required
 def vote_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     user = User.objects.first() #temp
@@ -136,6 +137,7 @@ def vote_post(request, post_id):
     return redirect('post', post_id)
 
 
+@login_required
 def vote_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     user = User.objects.first() #temp
