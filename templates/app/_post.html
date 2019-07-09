@@ -18,8 +18,7 @@
     <!-- ------ auther pub avatar ---- -->
     <div class="card-footer p-0 pb-1 pr-3">
 
-        <!-- <img width="30"  src="{% static 'img/profile.jpg' %}" class=" mr-3 rounded-circle"/> -->
-        <i data-feather="user"></i>
+        <img width="30" src="{{ post.created_by.profile.avatar.url }}" class=" mr-3 rounded-circle"/>
         <small class="text-muted ml-3">{{post.created_by}}</small>
         <small class="text-muted ml-3">قبل: {{post.created_at | timesince}}</small>
         <small class="text-muted ml-3">{{post.all_comments.count }} تعليق</small>
