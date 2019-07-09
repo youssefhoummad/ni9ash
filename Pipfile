@@ -17,6 +17,7 @@ django-heroku = "*"
 gunicorn = "*"
 django-crispy-forms = "*"
 markdown = "*"
+pillow = "*"
 
 
 [dev-packages]
