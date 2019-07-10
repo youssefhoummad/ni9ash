@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q # complex query in database
-
+from django.http import JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -133,14 +133,14 @@ def vote_post(request, post_id):
         post.vote_up(user=user)
     if request.POST.get('activity_type') == 'D':
         post.vote_down(user=user)
-        
+    
     return redirect('post', post_id)
 
 
 @login_required
 def vote_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    user = User.objects.first() #temp
+    user = request.user
 
     if request.POST.get('activity_type') == 'U':
         comment.vote_up(user=user)
@@ -148,7 +148,25 @@ def vote_comment(request, comment_id):
         comment.vote_down(user=user)
         
     return redirect('post', comment.post.id)
-    
+
+
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    print('############')
+    print(f"username request is: {username}")
+    print(user)
+    print('############')
+    context = {'user_profile': user }
+    return render(request, 'app/profile.html', context)
 
 # home page is posts url
 home = posts
+
+def test(request):
+    form = BookForm()
+    context = {'form': form}
+    html_form = render_to_string('books/includes/partial_book_create.html',
+        context,
+        request=request,
+    )
+    return JsonResponse({'html_form': html_form})

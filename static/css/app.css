@@ -121,3 +121,16 @@ blockquote p{
     padding-right: .5rem;
     border-right: .25rem solid #eceeef;
 }
+
+.nav-pills{
+    border-bottom: 2px solid #3f4257;
+    padding-right: 0;
+    font-family: 'Cairo', sans-serif;   
+}
+
+.nav-pills .nav-item .active{
+    background-color: inherit;
+    color: inherit;
+    border-bottom: 4px solid #3f4257;
+    border-radius: 0;
+}
