@@ -22,10 +22,13 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "k)-7o57u#5+g*ln7h#@z=_t1u1i8mrs$#g)5d#e=hb4p$aatwi"
+SECRET_KEY = os.environ.get('SECRET_KEY', "k)-7o57u#5+g*ln7h#@z=_t1u1i8mrs$#g)5d#e=hb4p$aatwi") 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == 'PRODUCTION':
+    DEBUG = False
+else:
+    DEBUG = True
 
 # Application definition
 
@@ -139,7 +142,7 @@ DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://ni9ash.herokuapp.com/']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

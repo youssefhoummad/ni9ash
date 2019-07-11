@@ -19,13 +19,13 @@
 {% block content %}
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-    ...  <br>  Not impliment yet
+    ...  <br>  not implemented yet
     </div>
     <div class="tab-pane fade show active" id="pills-newer" role="tabpanel" aria-labelledby="pills-newer-tab">
     
         {% include 'app/_list_posts.html'%}
 
-        <!-- <div class="pagination">
+        <div class="pagination">
             <span class="step-links btn-group" role="group">
                 {% if posts.has_previous %}
                     <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
@@ -37,7 +37,7 @@
                     <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
             </span>
-        </div> -->
+        </div>
     
     </div>
     <div class="tab-pane fade" id="pills-best" role="tabpanel" aria-labelledby="pills-best-tab">
