@@ -13,6 +13,8 @@ from .utils import get_object_or_none
 
 
 def posts(request, community_id=None):
+    order_by = request.GET.get('order_by', None)
+    
     communities = Community.objects.all()
     if community_id:
         community = get_object_or_404(Community, pk=community_id)

@@ -30,7 +30,7 @@ h5{
 }
 
 main{
-    min-height: calc(100vh - 70px - 113px) 
+    min-height: 100vh 
 }
 
 a{

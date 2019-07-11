@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load app_tags %}
 
 {% block navpills %}
 <ul class="nav nav-pills" id="pills-tab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link pb-0 active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">الرائج</a>
+        <a class="nav-link pb-0 active" id="pills-newer-tab" data-toggle="pill" href="#pills-newer" role="tab" aria-controls="pills-newer" aria-selected="true">الأحدث</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link pb-0" id="pills-newer-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">الأحدث</a>
+        <a class="nav-link pb-0" id="pills-best-tab" data-toggle="pill" href="#pills-best" role="tab" aria-controls="pills-best" aria-selected="false">الأفضل</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link pb-0" id="pills-best-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">الأفضل</a>
+        <a class="nav-link pb-0" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">الرائج</a>
     </li>
 </ul>
 {% endblock %}
 
 {% block content %}
-
 <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-    ...  <br>  رائج
+    <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    ...  <br>  Not impliment yet
     </div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-newer-tab">
+    <div class="tab-pane fade show active" id="pills-newer" role="tabpanel" aria-labelledby="pills-newer-tab">
     
         <ul class="list-unstyled w-100 p-0">
             {% for post in posts %}
@@ -44,8 +44,26 @@
         </div>
     
     </div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-best-tab">
-        ...  <br>  أفضل
+    <div class="tab-pane fade" id="pills-best" role="tabpanel" aria-labelledby="pills-best-tab">
+            <ul class="list-unstyled w-100 p-0">
+                    {% for post in posts|order_by:"created_by" %}
+                        {% include 'app/_post.html'%}
+                    {% endfor %}
+                </ul>
+                
+                <div class="pagination">
+                    <span class="step-links btn-group" role="group">
+                        {% if posts.has_previous %}
+                            <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+                            <a class="btn btn-secondary" href="?page={{ posts.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        {% if posts.has_next %}
+                            <a class="btn btn-secondary" href="?page={{ posts.next_page_number }}">next</a>
+                            <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
     </div>
 </div>
 {% endblock %}
@@ -93,6 +111,16 @@
 {% block javascript %}
 <script>
 $(document).ready(function(){
+    // $('#pills-test-tab').click(function(event) {
+    //     $(".list-unstyled .post").sort(sort_li) // sort elements
+    //               .appendTo('.list-unstyled'); // append again to the list
+    //     // sort function callback
+    //     function sort_li(a, b){
+    //         return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;    
+    //     }
+
+    // });
+
     $('.replay').click(function(event) {
       event.preventDefault();
       $(this).parent().next().next('form').toggle();

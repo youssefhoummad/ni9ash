@@ -46,6 +46,9 @@ class Post(models.Model):
     created_by = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     votes = GenericRelation(Vote)
 
+    class Meta:
+        ordering = ['-created_at']
+
     def votes_count(self):
         ups = self.votes.filter(activity_type=Vote.UP_VOTE).count()
         downs = self.votes.filter(activity_type=Vote.DOWN_VOTE).count()

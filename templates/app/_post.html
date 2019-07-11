@@ -1,5 +1,5 @@
 {% load static %}
-<div class="card mb-3"id="{{post.id}}">     
+<div class="card post mb-3" id="{{post.id}}" data-votes="{{post.votes_count}}">     
     <div class="card-body mr-5">
         <h5 class="card-title font-weight-bold">
             <a href="{% url 'post' post.id %}"> 
