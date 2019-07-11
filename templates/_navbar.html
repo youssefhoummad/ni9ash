@@ -13,7 +13,7 @@
                     <img src="{{user.profile.avatar.url}}" width="34" class="rounded-circle"/> 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="userMenu">
-                        <a class="dropdown-item" href="{% url 'account' %}">تعديل الحساب</a>
+                        <a class="dropdown-item" href="{% url 'profile' user.username %}">حسابي</a>
                         <a class="dropdown-item" href="{% url 'password_change' %}">تغيير كلمة المرور</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'logout' %}">خروج</a>

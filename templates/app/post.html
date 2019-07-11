@@ -44,15 +44,20 @@ $(document).ready(function(){
     $(".btn-control").click(function (event) {
       event.preventDefault();
 
-      var spanVote;
+      var post_id;
+      var comment_id;
       var activity_type;
+
+      var spanVote;
+
       var child =  $(this).children(".feather-chevron-up");
       var parent = $(this).parent(".btn-comment");
-      var post_id = {{ post.id}} ;
-      var comment_id;
 
       if (parent.length){
           comment_id = parent.parent().attr('id');
+      } else {
+        parent = $(this).parent(".btn-post");
+        post_id = parent.parent().attr('id');
       }
 
 

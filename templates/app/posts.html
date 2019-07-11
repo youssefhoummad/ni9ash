@@ -1,27 +1,53 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block navpills %}
+<ul class="nav nav-pills" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link pb-0 active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">الرائج</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link pb-0" id="pills-newer-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">الأحدث</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link pb-0" id="pills-best-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">الأفضل</a>
+    </li>
+</ul>
+{% endblock %}
+
 {% block content %}
 
-<ul class="list-unstyled w-100 p-0">
-    {% for post in posts %}
-        {% include 'app/_post.html'%}
-    {% endfor %}
-</ul>
-
-<div class="pagination">
-    <span class="step-links btn-group" role="group">
-        {% if posts.has_previous %}
-            <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
-            <a class="btn btn-secondary" href="?page={{ posts.previous_page_number }}">previous</a>
-        {% endif %}
-
-        {% if posts.has_next %}
-            <a class="btn btn-secondary" href="?page={{ posts.next_page_number }}">next</a>
-            <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    ...  <br>  رائج
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-newer-tab">
+    
+        <ul class="list-unstyled w-100 p-0">
+            {% for post in posts %}
+                {% include 'app/_post.html'%}
+            {% endfor %}
+        </ul>
+        
+        <div class="pagination">
+            <span class="step-links btn-group" role="group">
+                {% if posts.has_previous %}
+                    <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+                    <a class="btn btn-secondary" href="?page={{ posts.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                {% if posts.has_next %}
+                    <a class="btn btn-secondary" href="?page={{ posts.next_page_number }}">next</a>
+                    <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-best-tab">
+        ...  <br>  أفضل
+    </div>
 </div>
-
 {% endblock %}
 
 {% block aside %}
@@ -55,4 +81,64 @@
     <a href="{% url 'posts' community.id %}"><h5 class="badge bg-purple text-light">{{ community.name }}</h5></a>
     {% endfor %}
 </div>
+
+<div class="bg-white p-3 shadow-sm mb-4">
+    <small style="line-height: 0.1em">
+        © 2019 نقاش. مساهمات المستخدمين مرخّصة تحت <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license">رخصة المشاع الإبداعي BY-SA</a>.
+    </small>
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+$(document).ready(function(){
+    $('.replay').click(function(event) {
+      event.preventDefault();
+      $(this).parent().next().next('form').toggle();
+    });
+    $(".btn-control").click(function (event) {
+      event.preventDefault();
+
+      var post_id;
+      var comment_id;
+      var activity_type;
+
+      var spanVote;
+
+      var child =  $(this).children(".feather-chevron-up");
+      var parent = $(this).parent(".btn-comment");
+
+      if (parent.length){
+          comment_id = parent.parent().attr('id');
+      } else {
+        parent = $(this).parent(".btn-post");
+        post_id = parent.parent().attr('id');
+      }
+
+
+      if (child.length){
+        activity_type = 'U';
+        var spanVote = $(this).next();
+      } else {
+        activity_type = 'D';
+        var spanVote = $(this).prev();
+      };
+
+      $.ajax({
+        url: '/vote/',
+        type: 'get',
+        dataType: 'json',
+        data : {'post_id' : post_id,
+                'comment_id': comment_id,
+                'activity_type': activity_type,
+          },
+        success: function (data) {
+          
+          spanVote.text(data.votes);
+          }
+      });
+    });
+});
+</script>
 {% endblock %}

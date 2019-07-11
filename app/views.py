@@ -153,11 +153,9 @@ def vote(request):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    print('############')
-    print(f"username request is: {username}")
-    print(user)
-    print('############')
-    context = {'user_profile': user }
+    points = sum([post.votes.count() for post in user.posts.all()]) +\
+        sum([comment.votes.count() for comment in user.comments.all()])
+    context = {'user_profile': user, 'points':points, }
     return render(request, 'app/profile.html', context)
 
 # home page is posts url

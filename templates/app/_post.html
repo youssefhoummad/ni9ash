@@ -1,5 +1,5 @@
 {% load static %}
-<div class="card mb-3">     
+<div class="card mb-3"id="{{post.id}}">     
     <div class="card-body mr-5">
         <h5 class="card-title font-weight-bold">
             <a href="{% url 'post' post.id %}"> 
@@ -25,7 +25,7 @@
     </div>
 
     <!-- ------ votes boutons ---- -->
-    <div class="post-control-button ">
+    <div class="post-control-button btn-post">
         <a href="#" class="btn btn-control btn-sm p-0">
             <i data-feather="chevron-up"></i>
         </a>

@@ -11,6 +11,23 @@ html, body{
 h1, h2, h3, h4, h5{
     font-family: 'Cairo', sans-serif;
 }
+h1{
+    font-size: 195%;
+}
+h2{
+    font-size: 175%;
+}
+h3{
+    font-size: 155%;
+}
+
+h4{
+    font-size: 135%;
+}
+
+h5{
+    font-size: 115%;
+}
 
 main{
     min-height: calc(100vh - 70px - 113px) 
@@ -108,7 +125,7 @@ a:hover{
 
 /* fix bootstrap */
 .dropdown-menu-right{
-    right: -90px;
+    right: -110px;
 }
 
 blockquote {

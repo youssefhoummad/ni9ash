@@ -32,6 +32,10 @@
 <main role="main" class="container text-right mt-4">
   {% block main %}
   <div class="row">
+      <div class="col-md-9">{% block navpills %}{% endblock %}</div>
+  </div>
+  
+  <div class="row">
       <div class="col-md-9">
         {% block header %}{% endblock %}
       </div>
