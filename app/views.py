@@ -13,8 +13,7 @@ from .utils import get_object_or_none
 
 
 def posts(request, community_id=None):
-    order_by = request.GET.get('order_by', None)
-
+    """home page """
     communities = Community.objects.all()
     if community_id:
         community = get_object_or_404(Community, pk=community_id)
@@ -22,9 +21,11 @@ def posts(request, community_id=None):
     else:
         community = None
         all_posts = Post.objects.all()
-    
-    if order_by:
-        posts = sorted(all_posts, key=lambda a: a.votes_count())
+
+    #ajax
+    order_by = request.GET.get('order_by', None)
+    if order_by == 'best':
+        posts = sorted(all_posts, key=lambda a: a.votes_count(), reverse=True)
         context = {'posts':posts, 'communities':communities, 'this_community':community}
         html_form = render_to_string('app/_list_posts.html',
         context,
@@ -32,16 +33,17 @@ def posts(request, community_id=None):
         data = {'form': html_form}
         return JsonResponse(data)
     
+    #pagination
     paginator = Paginator(all_posts, 3)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-
 
     context = {'posts':posts, 'communities':communities, 'this_community':community}
     return render(request, 'app/home.html', context)
 
 
 def post(request, id):
+    """one post width nested comments"""
     post = get_object_or_404(Post, pk=id)
     form = CommentForm(request.POST or None)
     if form.is_valid():
@@ -63,6 +65,7 @@ def post(request, id):
 
 
 def communities(request):
+    """list of communities"""
     communities = Community.objects.all()
     context = {'communities':communities}
     return render(request, 'app/communities.html', context)

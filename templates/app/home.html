@@ -90,7 +90,6 @@
 <script>
 $(document).ready(function(){
 
-
     $("#pills-best-tab").click(function (event) {
         console.log("button clicked")
 
@@ -98,22 +97,14 @@ $(document).ready(function(){
             url: '/',
             type: 'get',
             dataType: 'json',
-            data : {'order_by' : 'votes',
+            data : {'order_by' : 'best',
             },
             success: function (data) {
                 $("#pills-best").html(data.form);
+                feather.replace();
             }
         });
     });
-    // $('#pills-test-tab').click(function(event) {
-    //     $(".list-unstyled .post").sort(sort_li) // sort elements
-    //               .appendTo('.list-unstyled'); // append again to the list
-    //     // sort function callback
-    //     function sort_li(a, b){
-    //         return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;    
-    //     }
-
-    // });
 
     $('.replay').click(function(event) {
       event.preventDefault();
