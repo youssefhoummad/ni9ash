@@ -41,6 +41,43 @@ $(document).ready(function(){
       event.preventDefault();
       $(this).parent().next().next('form').toggle();
     });
+    $(".btn-control").click(function (event) {
+      event.preventDefault();
+
+      var spanVote;
+      var activity_type;
+      var child =  $(this).children(".feather-chevron-up");
+      var parent = $(this).parent(".btn-comment");
+      var post_id = {{ post.id}} ;
+      var comment_id;
+
+      if (parent.length){
+          comment_id = parent.parent().attr('id');
+      }
+
+
+      if (child.length){
+        activity_type = 'U';
+        var spanVote = $(this).next();
+      } else {
+        activity_type = 'D';
+        var spanVote = $(this).prev();
+      };
+
+      $.ajax({
+        url: '/vote/',
+        type: 'get',
+        dataType: 'json',
+        data : {'post_id' : post_id,
+                'comment_id': comment_id,
+                'activity_type': activity_type,
+          },
+        success: function (data) {
+          
+          spanVote.text(data.votes);
+          }
+      });
+    });
 });
 </script>
 {% endblock %}

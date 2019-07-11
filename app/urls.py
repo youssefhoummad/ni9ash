@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.search, name="search"),
 
-    path('vote_post/<int:post_id>', views.vote_post, name="vote_post"),
+    path('vote/', views.vote, name="vote"),
     path('vote_comment/<int:comment_id>', views.vote_comment, name="vote_comment"),
     
     path('posts/<int:community_id>/', views.posts, name="posts"),
@@ -22,6 +22,6 @@ urlpatterns = [
     path('community/add/', views.add_community, name="add_community"),
 
     path('profile/<str:username>', views.profile, name="profile"),
-    path('test', views.test, name="test"),
+    path('test/', views.test, name="test"),
 
     ]

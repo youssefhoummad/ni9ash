@@ -125,29 +125,30 @@ def add_community(request):
 
 
 @login_required
-def vote_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    user = User.objects.first() #temp
+def vote(request):
+    post_id = request.GET.get('post_id', None)
+    comment_id = request.GET.get('comment_id', None)
 
-    if request.POST.get('activity_type') == 'U':
-        post.vote_up(user=user)
-    if request.POST.get('activity_type') == 'D':
-        post.vote_down(user=user)
+    post = get_object_or_none(Post, pk=post_id)
+    comment = get_object_or_none(Comment, pk=comment_id)
     
-    return redirect('post', post_id)
+    activity_type = request.GET.get('activity_type')
 
+    if comment:
+        if activity_type == 'U':
+            comment.vote_up(user=request.user)
+        else:
+            comment.vote_down(user=request.user)
+        data = {'votes': comment.votes_count()}
+        return JsonResponse(data)
 
-@login_required
-def vote_comment(request, comment_id):
-    comment = get_object_or_404(Comment, pk=comment_id)
-    user = request.user
-
-    if request.POST.get('activity_type') == 'U':
-        comment.vote_up(user=user)
-    if request.POST.get('activity_type') == 'D':
-        comment.vote_down(user=user)
-        
-    return redirect('post', comment.post.id)
+    if activity_type == 'U':
+        post.vote_up(user=request.user)
+    else:
+        post.vote_down(user=request.user)
+    
+    data = {'votes': post.votes_count()}
+    return JsonResponse(data)
 
 
 def profile(request, username):
@@ -161,12 +162,3 @@ def profile(request, username):
 
 # home page is posts url
 home = posts
-
-def test(request):
-    form = BookForm()
-    context = {'form': form}
-    html_form = render_to_string('books/includes/partial_book_create.html',
-        context,
-        request=request,
-    )
-    return JsonResponse({'html_form': html_form})
