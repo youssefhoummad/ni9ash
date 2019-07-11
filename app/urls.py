@@ -21,6 +21,4 @@ urlpatterns = [
     path('community/add/', views.add_community, name="add_community"),
 
     path('profile/<str:username>', views.profile, name="profile"),
-    path('test/', views.test, name="test"),
-
     ]
