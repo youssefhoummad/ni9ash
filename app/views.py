@@ -4,7 +4,7 @@ from django.db.models import Q # complex query in database
 from django.http import JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+from django.template.loader import render_to_string
 
 from .models import User, Community, Post, Comment, Vote
 from .forms import PostForm, CommunityForm , CommentForm
@@ -14,7 +14,7 @@ from .utils import get_object_or_none
 
 def posts(request, community_id=None):
     order_by = request.GET.get('order_by', None)
-    
+
     communities = Community.objects.all()
     if community_id:
         community = get_object_or_404(Community, pk=community_id)
@@ -22,13 +22,23 @@ def posts(request, community_id=None):
     else:
         community = None
         all_posts = Post.objects.all()
-
+    
+    if order_by:
+        posts = sorted(all_posts, key=lambda a: a.votes_count())
+        context = {'posts':posts, 'communities':communities, 'this_community':community}
+        html_form = render_to_string('app/_list_posts.html',
+        context,
+        request=request,)
+        data = {'form': html_form}
+        return JsonResponse(data)
+    
     paginator = Paginator(all_posts, 3)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
 
+
     context = {'posts':posts, 'communities':communities, 'this_community':community}
-    return render(request, 'app/posts.html', context)
+    return render(request, 'app/home.html', context)
 
 
 def post(request, id):
@@ -73,7 +83,7 @@ def search(request):
     posts = paginator.get_page(page)
 
     context = {'posts':posts, 'communities':communities, 'this_community':community}
-    return render(request, 'app/posts.html', context)
+    return render(request, 'app/home.html', context)
 
 
 

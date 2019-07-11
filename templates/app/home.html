@@ -23,13 +23,9 @@
     </div>
     <div class="tab-pane fade show active" id="pills-newer" role="tabpanel" aria-labelledby="pills-newer-tab">
     
-        <ul class="list-unstyled w-100 p-0">
-            {% for post in posts %}
-                {% include 'app/_post.html'%}
-            {% endfor %}
-        </ul>
-        
-        <div class="pagination">
+        {% include 'app/_list_posts.html'%}
+
+        <!-- <div class="pagination">
             <span class="step-links btn-group" role="group">
                 {% if posts.has_previous %}
                     <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
@@ -41,29 +37,11 @@
                     <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
             </span>
-        </div>
+        </div> -->
     
     </div>
     <div class="tab-pane fade" id="pills-best" role="tabpanel" aria-labelledby="pills-best-tab">
-            <ul class="list-unstyled w-100 p-0">
-                    {% for post in posts|order_by:"created_by" %}
-                        {% include 'app/_post.html'%}
-                    {% endfor %}
-                </ul>
-                
-                <div class="pagination">
-                    <span class="step-links btn-group" role="group">
-                        {% if posts.has_previous %}
-                            <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
-                            <a class="btn btn-secondary" href="?page={{ posts.previous_page_number }}">previous</a>
-                        {% endif %}
-                
-                        {% if posts.has_next %}
-                            <a class="btn btn-secondary" href="?page={{ posts.next_page_number }}">next</a>
-                            <a class="btn btn-secondary" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
-                </div>
+        best
     </div>
 </div>
 {% endblock %}
@@ -111,6 +89,22 @@
 {% block javascript %}
 <script>
 $(document).ready(function(){
+
+
+    $("#pills-best-tab").click(function (event) {
+        console.log("button clicked")
+
+        $.ajax({
+            url: '/',
+            type: 'get',
+            dataType: 'json',
+            data : {'order_by' : 'votes',
+            },
+            success: function (data) {
+                $("#pills-best").html(data.form);
+            }
+        });
+    });
     // $('#pills-test-tab').click(function(event) {
     //     $(".list-unstyled .post").sort(sort_li) // sort elements
     //               .appendTo('.list-unstyled'); // append again to the list
