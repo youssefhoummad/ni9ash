@@ -9,7 +9,6 @@ urlpatterns = [
     path('search/', views.search, name="search"),
 
     path('vote/', views.vote, name="vote"),
-    path('vote_comment/<int:comment_id>', views.vote_comment, name="vote_comment"),
     
     path('posts/<int:community_id>/', views.posts, name="posts"),
     
