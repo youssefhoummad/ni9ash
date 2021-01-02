@@ -3,6 +3,8 @@
 web site build using Django 2.2.
 clone of reddit/hsoub io
 
+![الموقع](https://raw.githubusercontent.com/youssefhoummad/ni9ash/master/screenshot%20_ni9ash.png)
+
 ## Features
 
 - panel controle for admin to add post and comments.
